@@ -5,10 +5,14 @@
   "logo": "https://avatars0.githubusercontent.com/u/11249211?v=3&s=200",
   "image": "heroku/java",
   "env": {
-    "BUILDPACK_URL": "https://github.com/IntroSDE/heroku-buildpack-ant.git",
     "HEROKU_URL": {
       "description": "The URL of this Heroku app.",
       "value": "http://YOURAPPNAME.herokuapp.com"
     }
-  } 
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/IntroSDE/heroku-buildpack-ant.git"
+    }
+  ] 
 }
