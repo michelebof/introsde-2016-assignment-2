@@ -112,8 +112,9 @@ public class Person implements Serializable {
 		this.username = username;
 	}
 
-	@XmlElementWrapper(name = "measureHistory")
-	@XmlElement(name = "measure")
+//	@XmlElementWrapper(name = "measureHistory")
+//	@XmlElement(name = "measure")
+	@XmlTransient
 	public List<HealthMeasureHistory> getHealthMeasureHistories() {
 		return this.healthMeasureHistories;
 	}
@@ -163,12 +164,18 @@ public class Person implements Serializable {
     }
 
     public static Person savePerson(Person p) {
+    	System.out.println("Cacca");
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
         LifeCoachDao.instance.closeConnections(em);
+        for(int i = 0;i<p.getLifeStatus().size();i++){
+        	p.getLifeStatus().get(i).setPerson(p);
+        	LifeStatus.updateLifeStatus(p.getLifeStatus().get(i));
+        }
+        
         return p;
     } 
 

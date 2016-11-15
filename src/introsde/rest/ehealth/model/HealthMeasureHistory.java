@@ -6,7 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import introsde.rest.ehealth.dao.LifeCoachDao;
+
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -99,4 +102,41 @@ public class HealthMeasureHistory implements Serializable {
 		this.person = person;
 	}
 
+	public static HealthMeasureHistory getHistoryId(int historyId) {
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        HealthMeasureHistory p = em.find(HealthMeasureHistory.class, historyId);
+        LifeCoachDao.instance.closeConnections(em);
+        return p;
+    }
+	
+    public static List<HealthMeasureHistory> getAll(int personId, String type) {
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        List<HealthMeasureHistory> list = em.createNamedQuery("HealthMeasureHistory.findAll", HealthMeasureHistory.class)
+            .getResultList();
+        
+        LifeCoachDao.instance.closeConnections(em);
+        for (int index = list.size()-1 ; index >= 0 ; index--){
+        	if ((list.get(index).getPerson().getIdPerson()!=personId) || (!type.equals(list.get(index).getMeasureDefName())) ){
+        		list.remove(index);
+        	}
+        }
+        return list;
+    }
+    
+    public static HealthMeasureHistory saveHistory(HealthMeasureHistory h, int id,String type) {
+    	System.out.println("Ciao");
+    	h.setPerson(Person.getPersonById(id));
+    	System.out.println("Ciao");
+    	h.setMeasureDefinition(MeasureDefinition.getByType(type));
+    	System.out.println("Ciao");
+    	System.out.println(h.getValue() + " " + h.getIdMeasureHistory() + " " + h.getPerson() + " " + h.getMeasureDefinition());
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        em.persist(h);
+        tx.commit();
+        LifeCoachDao.instance.closeConnections(em);
+        return h;
+    } 
+    
 }

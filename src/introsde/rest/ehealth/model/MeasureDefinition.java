@@ -19,6 +19,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"MeasureDefinition\"")
+//@NamedQueries({
+//	@NamedQuery(name="MeasureDefinition.findAll", query="SELECT m FROM MeasureDefinition m"),
+//	@NamedQuery(name="MeasureDefinition.findByType", query="SELECT c FROM MeasureDefinition c WHERE c.measureType = :measureType")
+//})
 @NamedQuery(name="MeasureDefinition.findAll", query="SELECT m FROM MeasureDefinition m")
 @XmlRootElement
 public class MeasureDefinition implements Serializable {
@@ -51,7 +55,7 @@ public class MeasureDefinition implements Serializable {
 	
 	// the GETTERS and SETTERS of all the private attributes
 
-	@XmlTransient
+	
 	public int getIdMeasureDef() {
 		return this.idMeasureDef;
 	}
@@ -113,6 +117,15 @@ public class MeasureDefinition implements Serializable {
 	    List<MeasureDefinition> list = em.createNamedQuery("MeasureDefinition.findAll", MeasureDefinition.class).getResultList();
 	    LifeCoachDao.instance.closeConnections(em);
 	    return list;
+	}
+	
+	public static MeasureDefinition getByType(String type){
+		System.out.println("c");
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		MeasureDefinition md = em.createNamedQuery("MeasureDefinition.findByType", MeasureDefinition.class).getSingleResult();
+	    LifeCoachDao.instance.closeConnections(em);
+	    
+        return md;
 	}
 
 

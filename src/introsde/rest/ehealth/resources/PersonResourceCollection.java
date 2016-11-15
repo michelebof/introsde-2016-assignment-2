@@ -1,4 +1,5 @@
 package introsde.rest.ehealth.resources;
+import introsde.rest.ehealth.model.HealthMeasureHistory;
 import introsde.rest.ehealth.model.Person;
 
 import java.io.IOException;
@@ -65,12 +66,18 @@ public class PersonResourceCollection {
     // Allows to type http://localhost:599/base_url/1
     // 1 will be treaded as parameter todo and passed to PersonResource
     @Path("{personId}")
+    @Produces({MediaType.TEXT_XML,  MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
     public PersonResource getPerson(@PathParam("personId") int id) {
         return new PersonResource(uriInfo, request, id);
     }
     
     @Path("{personId}/{measureType}")
-    public HistoryResource getHistoryPerson(@PathParam("personId") int id, @PathParam("measureType") String type) {
-        return new HistoryResource(uriInfo, request, id, type);
+    public HistoryResourceCollection getHistoryPerson(@PathParam("personId") int id, @PathParam("measureType") String type) {
+    	return new HistoryResourceCollection(uriInfo, request, id,type);
+    }
+    
+    @Path("{personId}/{measureType}/{mid}")
+    public HistoryResource getPerson(@PathParam("personId") int id,@PathParam("measureType") String type, @PathParam("mid") int mid) {
+        return new HistoryResource(uriInfo, request, id,type,mid);
     }
 }

@@ -28,68 +28,54 @@ public class HistoryResource {
     Request request;
     int id;
     String type;
+    int mid;
 
     EntityManager entityManager; // only used if the application is deployed in a Java EE container
 
-    public HistoryResource(UriInfo uriInfo, Request request,int id, String type, EntityManager em) {
+    public HistoryResource(UriInfo uriInfo, Request request,int id, String type, int mid , EntityManager em) {
         this.uriInfo = uriInfo;
         this.request = request;
         this.id = id;
         this.entityManager = em;
         this.type = type;
+        this.mid = mid;
     }
 
-    public HistoryResource(UriInfo uriInfo, Request request,int id, String type) {
+    public HistoryResource(UriInfo uriInfo, Request request,int id, String type, int mid) {
         this.uriInfo = uriInfo;
         this.request = request;
         this.id = id;
         this.type = type;
+        this.mid = mid;
     }
 
 
+    
+    // Application integration
     @GET
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
-    public List<HealthMeasureHistory> getPerson() {
-        Person p = this.getPersonById(id);
-        if (p == null)
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public HealthMeasureHistory getHM() {
+    	HealthMeasureHistory hm = HealthMeasureHistory.getHistoryId(mid);
+        if (hm == null || hm.getPerson().getIdPerson()!=id)
             throw new RuntimeException("Get: Person with " + id + " not found");
-        List<HealthMeasureHistory> hm = p.getHealthMeasureHistories();
-        for (int index = hm.size()-1 ; index >= 0 ; index--){
-        	if (! type.equals(hm.get(index).getMeasureDefName())){
-        		hm.remove(index);
-        	}
-        }
+        if (! type.equals(hm.getMeasureDefName()))
+        	throw new RuntimeException("Get: History with " + mid + " not found");
+        return hm;
+    }
+
+    // for the browser
+    @GET
+    @Produces(MediaType.TEXT_XML)
+    public HealthMeasureHistory getHMHTML() {
+    	HealthMeasureHistory hm = HealthMeasureHistory.getHistoryId(mid);
+        if (hm == null || hm.getPerson().getIdPerson()!=id)
+            throw new RuntimeException("Get: Person with " + id + " not found");
+        if (! type.equals(hm.getMeasureDefName()))
+        	throw new RuntimeException("Get: History with " + mid + " not found");
         return hm;
     }
 
 
-//    @PUT
-//    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-//    public Response putPerson(Person person) {
-//        System.out.println("--> Updating Person... " +this.id);
-//        System.out.println("--> "+person.toString());
-//        Person.updatePerson(person);
-//        Response res;
-//        Person existing = getPersonById(this.id);
-//
-//        if (existing == null) {
-//            res = Response.noContent().build();
-//        } else {
-//            res = Response.created(uriInfo.getAbsolutePath()).build();
-//            person.setIdPerson(this.id);
-//            Person.updatePerson(person);
-//        }
-//        return res;
-//    }
-//
-//    @DELETE
-//    public void deletePerson() {
-//        Person c = getPersonById(id);
-//        if (c == null)
-//            throw new RuntimeException("Delete: Person with " + id
-//                    + " not found");
-//        Person.removePerson(c);
-//    }
 
     public Person getPersonById(int personId) {
         System.out.println("Reading person from DB with id: "+personId);
