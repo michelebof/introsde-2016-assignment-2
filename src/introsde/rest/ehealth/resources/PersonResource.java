@@ -66,13 +66,29 @@ public class PersonResource {
     public Response putPerson(Person person) {
         System.out.println("--> Updating Person... " +this.id);
         System.out.println("--> "+person.toString());
-        Person.updatePerson(person);
         Response res;
         Person existing = getPersonById(this.id);
 
         if (existing == null) {
             res = Response.noContent().build();
         } else {
+        	person.setLifeStatus(existing.getLifeStatus());
+        	person.setHealthMeasureHistories(existing.getHealthMeasureHistories());
+        	if(person.getBirthdate()==null){
+        		person.setBirthdate(existing.getBirthdate());
+        	}
+        	if(person.getEmail()==null){
+        		person.setEmail(existing.getEmail());
+        	}
+        	if(person.getLastname()==null){
+        		person.setLastname(existing.getLastname());
+        	}
+        	if(person.getName()==null){
+        		person.setName(existing.getName());
+        	}
+        	if(person.getUsername()==null){
+        		person.setUsername(existing.getUsername());
+        	}
             res = Response.created(uriInfo.getAbsolutePath()).build();
             person.setIdPerson(this.id);
             Person.updatePerson(person);

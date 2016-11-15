@@ -45,7 +45,7 @@ public class LifeStatus implements Serializable {
 	public void setIdMeasure(int idMeasure) {
 		this.idMeasure = idMeasure;
 	}
-	@XmlTransient
+	//@XmlTransient
 	public MeasureDefinition getMeasureDef() {
 		return measureDefinition;
 	}
