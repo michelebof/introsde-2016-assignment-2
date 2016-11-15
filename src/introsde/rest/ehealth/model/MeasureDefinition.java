@@ -19,10 +19,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"MeasureDefinition\"")
-//@NamedQueries({
-//	@NamedQuery(name="MeasureDefinition.findAll", query="SELECT m FROM MeasureDefinition m"),
-//	@NamedQuery(name="MeasureDefinition.findByType", query="SELECT c FROM MeasureDefinition c WHERE c.measureType = :measureType")
-//})
 @NamedQuery(name="MeasureDefinition.findAll", query="SELECT m FROM MeasureDefinition m")
 @XmlRootElement
 public class MeasureDefinition implements Serializable {
@@ -120,9 +116,9 @@ public class MeasureDefinition implements Serializable {
 	}
 	
 	public static MeasureDefinition getByType(String type){
-		System.out.println("c");
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-		MeasureDefinition md = em.createNamedQuery("MeasureDefinition.findByType", MeasureDefinition.class).getSingleResult();
+		MeasureDefinition md = em.createQuery("SELECT m FROM MeasureDefinition m WHERE m.measureName=:type", MeasureDefinition.class)
+				.setParameter("type", type).getSingleResult();
 	    LifeCoachDao.instance.closeConnections(em);
 	    
         return md;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
@@ -13,6 +14,7 @@ import introsde.rest.ehealth.dao.LifeCoachDao;
 @Table(name="\"LifeStatus\"") // to whate table must be persisted
 
 @NamedQuery(name="LifeStatus.findAll", query="SELECT p FROM LifeStatus p")
+@XmlRootElement
 public class LifeStatus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id // defines this attributed as the one that identifies the entity
@@ -93,12 +95,14 @@ public class LifeStatus implements Serializable {
     }
 
     public static LifeStatus saveLifeStatus(LifeStatus ls) {
+    	System.out.println("xx");
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(ls);
         tx.commit();
         LifeCoachDao.instance.closeConnections(em);
+        System.out.println("xx1");
         return ls;
     } 
 
@@ -121,5 +125,18 @@ public class LifeStatus implements Serializable {
         tx.commit();
         LifeCoachDao.instance.closeConnections(em);
     }
+    
+	public static LifeStatus getLastLifeStatus(int id, String type){
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		List<LifeStatus> ls = em
+				.createQuery("SELECT l FROM LifeStatus l WHERE l.measureDefinition.measureName = :type and l.person.idPerson = :id", LifeStatus.class)
+				.setParameter("type", type)
+				.setParameter("id", id).getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    if (ls.isEmpty()){
+	    	return null;
+	    }
+        return ls.get(0);
+	}
 
 }

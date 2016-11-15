@@ -123,20 +123,35 @@ public class HealthMeasureHistory implements Serializable {
         return list;
     }
     
-    public static HealthMeasureHistory saveHistory(HealthMeasureHistory h, int id,String type) {
-    	System.out.println("Ciao");
-    	h.setPerson(Person.getPersonById(id));
-    	System.out.println("Ciao");
-    	h.setMeasureDefinition(MeasureDefinition.getByType(type));
-    	System.out.println("Ciao");
-    	System.out.println(h.getValue() + " " + h.getIdMeasureHistory() + " " + h.getPerson() + " " + h.getMeasureDefinition());
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.persist(h);
-        tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
-        return h;
+    public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) {
+    	LifeStatus last = LifeStatus.getLastLifeStatus(id, type);
+    	// create new History
+    	if (last!= null){
+	    	HealthMeasureHistory newHistory = new HealthMeasureHistory();
+	    	newHistory.setMeasureDefinition(last.getMeasureDef());
+	    	newHistory.setPerson(last.getPerson());
+	    	newHistory.setTimestamp(new Date());
+	    	newHistory.setValue(last.getValue());
+	    	LifeStatus.removeLifeStatus(last);
+	        EntityManager em = LifeCoachDao.instance.createEntityManager();
+	        EntityTransaction tx = em.getTransaction();
+	        tx.begin();
+	        em.persist(newHistory);
+	        tx.commit();
+	        LifeCoachDao.instance.closeConnections(em);
+    	}
+        // h is a new value in the Lifestatus
+    	LifeStatus nuovo = new LifeStatus();
+//    	Person p =Person.getPersonById(1);
+//    	System.out.println("3");
+//    	nuovo.setPerson(p);
+    	System.out.println("4");
+    	nuovo.setMeasureDef(MeasureDefinition.getByType(type));
+    	System.out.println("5");
+    	nuovo.setValue(h.getValue());
+    	System.out.println("6");
+    	return LifeStatus.saveLifeStatus(nuovo);
+        //return h;
     } 
     
 }

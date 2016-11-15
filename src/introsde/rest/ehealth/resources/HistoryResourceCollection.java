@@ -1,6 +1,7 @@
 package introsde.rest.ehealth.resources;
 import introsde.rest.ehealth.model.HealthMeasureHistory;
 import introsde.rest.ehealth.model.Person;
+import introsde.rest.ehealth.model.LifeStatus;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,12 +59,12 @@ public class HistoryResourceCollection {
         return hm;
     }
     
-//    @POST
-//    @Produces(MediaType.APPLICATION_XML)
-//    @Consumes(MediaType.APPLICATION_XML)
-//    public HealthMeasureHistory newHistory(HealthMeasureHistory history) throws IOException {
-//        System.out.println("Creating new history to person with id="+id);            
-//        return HealthMeasureHistory.saveHistory(history, id, type);
-//    }
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
+    public LifeStatus newHistory(HealthMeasureHistory history) throws IOException {
+        System.out.println("Creating new history to person with id="+id);            
+        return HealthMeasureHistory.saveHistory(history, id, type);
+    }
 
 }

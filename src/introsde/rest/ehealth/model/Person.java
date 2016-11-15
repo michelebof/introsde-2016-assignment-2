@@ -164,7 +164,6 @@ public class Person implements Serializable {
     }
 
     public static Person savePerson(Person p) {
-    	System.out.println("Cacca");
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
