@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.rest.ehealth.dao.LifeCoachDao;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -31,9 +31,9 @@ public class HealthMeasureHistory implements Serializable {
 	@Column(name="\"idMeasureHistory\"")
 	private int idMeasureHistory;
 
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name="\"timestamp\"")
-	private Date timestamp;
+	private String timestamp;
 
 	@Column(name="\"value\"")
 	private String value;
@@ -61,13 +61,13 @@ public class HealthMeasureHistory implements Serializable {
 	public void setIdMeasureHistory(int idMeasureHistory) {
 		this.idMeasureHistory = idMeasureHistory;
 	}
-
+	
 	@XmlElement(name = "created")
-	public Date getTimestamp() {
+	public String getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -125,12 +125,14 @@ public class HealthMeasureHistory implements Serializable {
     
     public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) {
     	LifeStatus last = LifeStatus.getLastLifeStatus(id, type);
+    	Person p =Person.getPersonById(id);
     	// create new History
     	if (last!= null){
 	    	HealthMeasureHistory newHistory = new HealthMeasureHistory();
 	    	newHistory.setMeasureDefinition(last.getMeasureDef());
-	    	newHistory.setPerson(last.getPerson());
-	    	newHistory.setTimestamp(new Date());
+	    	newHistory.setPerson(p);
+	    	Date now = new Date();
+	    	newHistory.setTimestamp(now.toString());
 	    	newHistory.setValue(last.getValue());
 	    	LifeStatus.removeLifeStatus(last);
 	        EntityManager em = LifeCoachDao.instance.createEntityManager();
@@ -141,17 +143,25 @@ public class HealthMeasureHistory implements Serializable {
 	        LifeCoachDao.instance.closeConnections(em);
     	}
         // h is a new value in the Lifestatus
-    	LifeStatus nuovo = new LifeStatus();
-//    	Person p =Person.getPersonById(1);
-//    	System.out.println("3");
-//    	nuovo.setPerson(p);
-    	System.out.println("4");
-    	nuovo.setMeasureDef(MeasureDefinition.getByType(type));
-    	System.out.println("5");
-    	nuovo.setValue(h.getValue());
-    	System.out.println("6");
-    	return LifeStatus.saveLifeStatus(nuovo);
-        //return h;
+    	LifeStatus nuovo = new LifeStatus();    	
+    	nuovo.setPerson(p);    	
+    	nuovo.setMeasureDef(MeasureDefinition.getByType(type));    	
+    	nuovo.setValue(h.getValue()); 
+    	LifeStatus ls = LifeStatus.saveLifeStatus(nuovo);
+    	HealthMeasureHistory.refreshHealthMeasureHistory(p);
+    	LifeStatus.refreshLifeStatus(p);
+    	return ls;
+       
     } 
+    
+	public static void refreshHealthMeasureHistory(Person p){
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		List<HealthMeasureHistory> history = em
+				.createQuery("SELECT l FROM HealthMeasureHistory l WHERE l.person.idPerson = :id", HealthMeasureHistory.class)
+				.setParameter("id", p.getIdPerson()).getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    p.setHealthMeasureHistories(history);
+	    Person.updatePerson(p);
+	}
     
 }

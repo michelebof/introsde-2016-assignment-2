@@ -138,5 +138,15 @@ public class LifeStatus implements Serializable {
 	    }
         return ls.get(0);
 	}
+	
+	public static void refreshLifeStatus(Person p){
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		List<LifeStatus> ls = em
+				.createQuery("SELECT l FROM LifeStatus l WHERE l.person.idPerson = :id", LifeStatus.class)
+				.setParameter("id", p.getIdPerson()).getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    p.setLifeStatus(ls);
+	    Person.updatePerson(p);
+	}
 
 }

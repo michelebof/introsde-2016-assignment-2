@@ -6,7 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public enum LifeCoachDao {
+public enum LifeCoachDao{
     instance;
     private EntityManagerFactory emf;
 
