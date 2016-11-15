@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.rest.ehealth.dao.LifeCoachDao;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
