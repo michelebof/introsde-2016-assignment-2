@@ -54,8 +54,8 @@ public class PersonResourceCollection {
 
 
     @POST
-    @Produces(MediaType.APPLICATION_XML)
-    @Consumes(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
+    @Consumes({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
     public Person newPerson(Person person) throws IOException {
         System.out.println("Creating new person...");            
         return Person.savePerson(person);

@@ -1,6 +1,11 @@
 package introsde.rest.ehealth.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -64,13 +69,16 @@ public class Person implements Serializable {
 	
 	// the GETTERS and SETTERS of all the private attributes
     
-	public Date getBirthdate() {
-		return this.birthdate;
-	}
+    public String getBirthdate(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(this.birthdate);
+    }
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
+    public void setBirthdate(String bd) throws ParseException{
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date date = format.parse(bd);
+        this.birthdate = date;
+    }
 
 	public String getEmail() {
 		return this.email;

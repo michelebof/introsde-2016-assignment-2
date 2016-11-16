@@ -1,6 +1,10 @@
 package introsde.rest.ehealth.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +14,7 @@ import introsde.rest.ehealth.dao.LifeCoachDao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -31,9 +36,9 @@ public class HealthMeasureHistory implements Serializable {
 	@Column(name="\"idMeasureHistory\"")
 	private int idMeasureHistory;
 
-	//@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	@Column(name="\"timestamp\"")
-	private String timestamp;
+	private Date timestamp;
 
 	@Column(name="\"value\"")
 	private String value;
@@ -64,12 +69,15 @@ public class HealthMeasureHistory implements Serializable {
 	
 	@XmlElement(name = "created")
 	public String getTimestamp() {
-		return this.timestamp;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(this.timestamp);
 	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
+	
+	public void setTimestamp(String timestamp) throws ParseException{
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
+        Date date = format.parse(timestamp);
+        this.timestamp = date;
+    }
 
 	public String getValue() {
 		return this.value;
@@ -123,7 +131,7 @@ public class HealthMeasureHistory implements Serializable {
         return list;
     }
     
-    public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) {
+    public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) throws ParseException {
     	LifeStatus last = LifeStatus.getLastLifeStatus(id, type);
     	Person p =Person.getPersonById(id);
     	// create new History
@@ -131,8 +139,8 @@ public class HealthMeasureHistory implements Serializable {
 	    	HealthMeasureHistory newHistory = new HealthMeasureHistory();
 	    	newHistory.setMeasureDefinition(last.getMeasureDef());
 	    	newHistory.setPerson(p);
-	    	Date now = new Date();
-	    	newHistory.setTimestamp(now.toString());
+	    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			newHistory.setTimestamp(sdf.format(new Date()));
 	    	newHistory.setValue(last.getValue());
 	    	LifeStatus.removeLifeStatus(last);
 	        EntityManager em = LifeCoachDao.instance.createEntityManager();

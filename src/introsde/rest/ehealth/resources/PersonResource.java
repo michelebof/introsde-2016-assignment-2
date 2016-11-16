@@ -2,6 +2,9 @@ package introsde.rest.ehealth.resources;
 
 import introsde.rest.ehealth.model.Person;
 
+import java.sql.Date;
+import java.text.ParseException;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -63,7 +66,7 @@ public class PersonResource {
 
     @PUT
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Response putPerson(Person person) {
+    public Response putPerson(Person person) throws ParseException {
         System.out.println("--> Updating Person... " +this.id);
         System.out.println("--> "+person.toString());
         Response res;

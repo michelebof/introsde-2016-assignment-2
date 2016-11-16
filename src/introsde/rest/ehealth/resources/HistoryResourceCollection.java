@@ -4,6 +4,7 @@ import introsde.rest.ehealth.model.Person;
 import introsde.rest.ehealth.model.LifeStatus;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -60,9 +61,9 @@ public class HistoryResourceCollection {
     }
     
     @POST
-    @Produces(MediaType.APPLICATION_XML)
-    @Consumes(MediaType.APPLICATION_XML)
-    public LifeStatus newHistory(HealthMeasureHistory history) throws IOException {
+    @Produces({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
+    @Consumes({MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
+    public LifeStatus newHistory(HealthMeasureHistory history) throws IOException, ParseException {
         System.out.println("Creating new history to person with id="+id);            
         return HealthMeasureHistory.saveHistory(history, id, type);
     }

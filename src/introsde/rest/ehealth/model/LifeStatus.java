@@ -95,14 +95,12 @@ public class LifeStatus implements Serializable {
     }
 
     public static LifeStatus saveLifeStatus(LifeStatus ls) {
-    	System.out.println("xx");
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(ls);
         tx.commit();
         LifeCoachDao.instance.closeConnections(em);
-        System.out.println("xx1");
         return ls;
     } 
 
