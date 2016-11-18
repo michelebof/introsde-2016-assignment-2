@@ -58,7 +58,6 @@ public class HealthMeasureHistory implements Serializable {
 
 	// the GETTERS and SETTERS of all the private attributes
 
-	@XmlTransient
 	public int getIdMeasureHistory() {
 		return this.idMeasureHistory;
 	}

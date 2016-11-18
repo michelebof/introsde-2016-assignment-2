@@ -66,7 +66,6 @@ public class PersonResourceCollection {
     // Allows to type http://localhost:599/base_url/1
     // 1 will be treaded as parameter todo and passed to PersonResource
     @Path("{personId}")
-    @Produces({MediaType.TEXT_XML,  MediaType.APPLICATION_JSON ,  MediaType.APPLICATION_XML })
     public PersonResource getPerson(@PathParam("personId") int id) {
         return new PersonResource(uriInfo, request, id);
     }

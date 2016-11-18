@@ -46,27 +46,29 @@ public class PersonResource {
     // Application integration
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Person getPerson() {
+    public Response getPerson() {
         Person person = this.getPersonById(id);
         if (person == null)
-            throw new RuntimeException("Get: Person with " + id + " not found");
-        return person;
+        	return Response.status(404).build();
+        System.out.println("Returning person... " + person.getIdPerson());
+        return Response.ok().entity(person).build();
     }
 
     // for the browser
     @GET
     @Produces(MediaType.TEXT_XML)
-    public Person getPersonHTML() {
+    public Response getPersonHTML() {
         Person person = this.getPersonById(id);
         if (person == null)
-            throw new RuntimeException("Get: Person with " + id + " not found");
+        	return Response.status(404).build();
         System.out.println("Returning person... " + person.getIdPerson());
-        return person;
+        return Response.ok().entity(person).build();
     }
 
     @PUT
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Response putPerson(Person person) throws ParseException {
+    public Person putPerson(Person person) throws ParseException {
         System.out.println("--> Updating Person... " +this.id);
         System.out.println("--> "+person.toString());
         Response res;
@@ -96,7 +98,7 @@ public class PersonResource {
             person.setIdPerson(this.id);
             Person.updatePerson(person);
         }
-        return res;
+        return person;
     }
 
     @DELETE
@@ -111,10 +113,9 @@ public class PersonResource {
     public Person getPersonById(int personId) {
         System.out.println("Reading person from DB with id: "+personId);
 
-        // this will work within a Java EE container, where not DAO will be needed
-        //Person person = entityManager.find(Person.class, personId); 
 
         Person person = Person.getPersonById(personId);
+        if (person == null) return null;
         System.out.println("Person: "+person.toString());
         return person;
     }

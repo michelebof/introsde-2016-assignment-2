@@ -70,6 +70,9 @@ public class Person implements Serializable {
 	// the GETTERS and SETTERS of all the private attributes
     
     public String getBirthdate(){
+    	if(this.birthdate == null) {
+    	      return null;
+    	}
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(this.birthdate);
     }
