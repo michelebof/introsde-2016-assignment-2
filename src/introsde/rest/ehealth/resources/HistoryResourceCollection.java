@@ -32,6 +32,8 @@ public class HistoryResourceCollection {
     Request request;
     int id;
     String type;
+    String before;
+    String after;
 
     EntityManager entityManager; // only used if the application is deployed in a Java EE container
 
@@ -50,11 +52,26 @@ public class HistoryResourceCollection {
         this.type = type;
     }
     
+    public HistoryResourceCollection(UriInfo uriInfo, Request request,int id, String type, String before, String after) {
+        this.uriInfo = uriInfo;
+        this.request = request;
+        this.id = id;
+        this.type = type;
+        this.before = before;
+        this.after = after;
+    }
+    
     // Application integration
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public List<HealthMeasureHistory> getHistory() {
-    	List<HealthMeasureHistory> hm = HealthMeasureHistory.getAll(id, type);
+    public List<HealthMeasureHistory> getHistory() throws ParseException {
+    	List<HealthMeasureHistory> hm=null;
+    	if (before!=null || after!=null){
+    		hm = HealthMeasureHistory.getWithDate(id, type, before, after);
+    	}else{
+    		hm = HealthMeasureHistory.getAll(id, type);
+    	}
+ 	
         if (hm.size()==0)
             throw new RuntimeException("Get: Person with " + id + " not found");
         return hm;

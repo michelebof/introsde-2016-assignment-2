@@ -1,0 +1,281 @@
+Request #1: GET /person Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><people>
+  <person>
+    <birthdate>07/08/1993</birthdate>
+    <email>michele@test.com</email>
+    <idPerson>1</idPerson>
+    <lastname>Bof</lastname>
+    <healthProfile>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>1</idMeasureDef>
+          <measureName>weight</measureName>
+        </measureDef>
+        <measureName>weight</measureName>
+        <value>72</value>
+      </measureType>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>2</idMeasureDef>
+          <measureName>height</measureName>
+        </measureDef>
+        <measureName>height</measureName>
+        <value>72</value>
+      </measureType>
+    </healthProfile>
+    <name>Jon</name>
+    <username>mikybof</username>
+  </person>
+  <person>
+    <birthdate>02/09/1978</birthdate>
+    <email>pippo.pappo@gmail.com</email>
+    <idPerson>3</idPerson>
+    <lastname>Pippo</lastname>
+    <healthProfile/>
+    <name>Pappo</name>
+    <username>pippo</username>
+  </person>
+  <person>
+    <birthdate>10/12/1993</birthdate>
+    <email>michele@test.com</email>
+    <idPerson>3503</idPerson>
+    <lastname>michele</lastname>
+    <healthProfile>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>1</idMeasureDef>
+          <measureName>weight</measureName>
+        </measureDef>
+        <measureName>weight</measureName>
+        <value>80</value>
+      </measureType>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>2</idMeasureDef>
+          <measureName>height</measureName>
+        </measureDef>
+        <measureName>height</measureName>
+        <value>180</value>
+      </measureType>
+    </healthProfile>
+    <name>michele</name>
+    <username>miky</username>
+  </person>
+</people>
+
+Request #2: GET /person/1 Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><person>
+  <birthdate>07/08/1993</birthdate>
+  <email>michele@test.com</email>
+  <idPerson>1</idPerson>
+  <lastname>Bof</lastname>
+  <healthProfile>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>1</idMeasureDef>
+        <measureName>weight</measureName>
+      </measureDef>
+      <measureName>weight</measureName>
+      <value>72</value>
+    </measureType>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>2</idMeasureDef>
+        <measureName>height</measureName>
+      </measureDef>
+      <measureName>height</measureName>
+      <value>72</value>
+    </measureType>
+  </healthProfile>
+  <name>Jon</name>
+  <username>mikybof</username>
+</person>
+
+Request #3: PUT /person/1 Accept: application/xml Content-Type:  application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><person>
+  <birthdate>07/08/1993</birthdate>
+  <email>michele@test.com</email>
+  <idPerson>1</idPerson>
+  <lastname>Bof</lastname>
+  <healthProfile>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>1</idMeasureDef>
+        <measureName>weight</measureName>
+      </measureDef>
+      <measureName>weight</measureName>
+      <value>72</value>
+    </measureType>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>2</idMeasureDef>
+        <measureName>height</measureName>
+      </measureDef>
+      <measureName>height</measureName>
+      <value>72</value>
+    </measureType>
+  </healthProfile>
+  <name>Jon</name>
+  <username>mikybof</username>
+</person>
+
+Request #4: POST /person Accept: application/xml Content-Type:  application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><person>
+  <birthdate>01/01/1945</birthdate>
+  <idPerson>3855</idPerson>
+  <lastname>Norris</lastname>
+  <healthProfile>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>1</idMeasureDef>
+      </measureDef>
+      <value>78.9</value>
+    </measureType>
+    <measureType>
+      <measureDef>
+        <idMeasureDef>2</idMeasureDef>
+      </measureDef>
+      <value>172</value>
+    </measureType>
+  </healthProfile>
+  <name>Chuck</name>
+</person>
+
+Request #5: DELETE /person/3855 Accept: application/xml
+=> Result: OK
+=> HTTP Status: 204
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+
+Request #6: GET /measureTypes Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><measureTypes>
+  <measureType>weight</measureType>
+  <measureType>height</measureType>
+  <measureType>steps</measureType>
+  <measureType>blood pressure</measureType>
+  <measureType>heart rate</measureType>
+  <measureType>bmi</measureType>
+</measureTypes>
+
+Request #7: GET /person/1/height Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><healthMeasureHistories>
+  <healthMeasureHistory>
+    <idMeasureHistory>155</idMeasureHistory>
+    <measureName>height</measureName>
+    <created>09/12/2011</created>
+    <value>82</value>
+  </healthMeasureHistory>
+  <healthMeasureHistory>
+    <idMeasureHistory>156</idMeasureHistory>
+    <measureName>height</measureName>
+    <created>17/11/2016</created>
+    <value>172</value>
+  </healthMeasureHistory>
+  <healthMeasureHistory>
+    <idMeasureHistory>354</idMeasureHistory>
+    <measureName>height</measureName>
+    <created>20/11/2016</created>
+    <value>72</value>
+  </healthMeasureHistory>
+  <healthMeasureHistory>
+    <idMeasureHistory>554</idMeasureHistory>
+    <measureName>height</measureName>
+    <created>21/11/2016</created>
+    <value>72</value>
+  </healthMeasureHistory>
+  <healthMeasureHistory>
+    <idMeasureHistory>555</idMeasureHistory>
+    <measureName>height</measureName>
+    <created>21/11/2016</created>
+    <value>72</value>
+  </healthMeasureHistory>
+</healthMeasureHistories>
+
+Request #8: GET /person/1/height/155 Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><healthMeasureHistory>
+  <idMeasureHistory>155</idMeasureHistory>
+  <measureName>height</measureName>
+  <created>09/12/2011</created>
+  <value>82</value>
+</healthMeasureHistory>
+
+Request #9: POST /person/1/height Accept: application/xml Content-Type:  application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><lifeStatus>
+  <measureDef>
+    <idMeasureDef>2</idMeasureDef>
+    <measureName>height</measureName>
+  </measureDef>
+  <measureName>height</measureName>
+  <value>72</value>
+</lifeStatus>
+
+Request #10: PUT /person/1/height/155 Accept: application/xml Content-Type:  application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><healthMeasureHistory>
+  <idMeasureHistory>155</idMeasureHistory>
+  <measureName>height</measureName>
+  <created>09/12/2011</created>
+  <value>82</value>
+</healthMeasureHistory>
+
+Request #11: GET /person/1/weight?before=18/11/2016&after=10/10/2011 Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><healthMeasureHistories>
+  <healthMeasureHistory>
+    <idMeasureHistory>2</idMeasureHistory>
+    <measureName>weight</measureName>
+    <created>17/11/2016</created>
+    <value>84</value>
+  </healthMeasureHistory>
+</healthMeasureHistories>
+
+Request #12: GET /person?measureType=weight&max=85&min=75 Accept: application/xml
+=> Result: OK
+=> HTTP Status: 200
+<?xml version="1.0" encoding="UTF-8"?><people>
+  <person>
+    <birthdate>10/12/1993</birthdate>
+    <email>michele@test.com</email>
+    <idPerson>3503</idPerson>
+    <lastname>michele</lastname>
+    <healthProfile>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>1</idMeasureDef>
+          <measureName>weight</measureName>
+        </measureDef>
+        <measureName>weight</measureName>
+        <value>80</value>
+      </measureType>
+      <measureType>
+        <measureDef>
+          <idMeasureDef>2</idMeasureDef>
+          <measureName>height</measureName>
+        </measureDef>
+        <measureName>height</measureName>
+        <value>180</value>
+      </measureType>
+    </healthProfile>
+    <name>michele</name>
+    <username>miky</username>
+  </person>
+</people>
+

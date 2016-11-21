@@ -130,6 +130,29 @@ public class HealthMeasureHistory implements Serializable {
         return list;
     }
     
+    
+    public static List<HealthMeasureHistory> getWithDate(int personId, String type, String before, String after) throws ParseException {
+    	DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+    	Date bf = null;
+    	Date af = null;
+    	if (before == null) bf = format.parse(format.format(new Date()));
+    	else bf = format.parse(before);
+    	if (after == null) af = format.parse(format.format(new Date(0)));
+    	else af = format.parse(after);
+        
+    	EntityManager em = LifeCoachDao.instance.createEntityManager();
+    	List<HealthMeasureHistory> list = em
+				.createQuery("SELECT l FROM HealthMeasureHistory l WHERE l.measureDefinition.measureName = :type and l.person.idPerson = :id"
+						+ " and l.timestamp >= :after and l.timestamp <= :before", HealthMeasureHistory.class)
+				.setParameter("type", type)
+				.setParameter("id", personId)
+				.setParameter("before", bf)
+				.setParameter("after", af).getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    return list;
+    }
+    
+    
     public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) throws ParseException {
     	LifeStatus last = LifeStatus.getLastLifeStatus(id, type);
     	Person p =Person.getPersonById(id);
@@ -169,6 +192,16 @@ public class HealthMeasureHistory implements Serializable {
 	    LifeCoachDao.instance.closeConnections(em);
 	    p.setHealthMeasureHistories(history);
 	    Person.updatePerson(p);
+	}
+	
+	public static HealthMeasureHistory updateHealthMeasureHistory(HealthMeasureHistory h){
+		EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        h=em.merge(h);
+        tx.commit();
+        LifeCoachDao.instance.closeConnections(em);
+        return h;
 	}
     
 }

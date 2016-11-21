@@ -2,7 +2,9 @@ package introsde.rest.ehealth.resources;
 
 import introsde.rest.ehealth.model.Person;
 import introsde.rest.ehealth.model.HealthMeasureHistory;
+import introsde.rest.ehealth.model.MeasureDefinition;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -73,6 +75,22 @@ public class HistoryResource {
         if (! type.equals(hm.getMeasureDefName()))
         	throw new RuntimeException("Get: History with " + mid + " not found");
         return hm;
+    }
+    
+    
+    @PUT
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public HealthMeasureHistory putMeasureHistory(HealthMeasureHistory history) throws ParseException {
+        System.out.println("--> Updating HealthMeasureHistory... " +this.mid);
+        Response res;
+        history.setIdMeasureHistory(mid);
+        history.setPerson(this.getPersonById(id));
+        history.setMeasureDefinition(MeasureDefinition.getByType(type));
+        if(history.getTimestamp() == null) history.setTimestamp(HealthMeasureHistory.getHistoryId(mid).getTimestamp());
+        HealthMeasureHistory.updateHealthMeasureHistory(history);
+        
+        return history;
     }
 
 

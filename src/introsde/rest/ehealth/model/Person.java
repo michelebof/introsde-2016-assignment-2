@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import introsde.rest.ehealth.dao.LifeCoachDao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -172,6 +173,25 @@ public class Person implements Serializable {
             .getResultList();
         LifeCoachDao.instance.closeConnections(em);
         return list;
+    }
+    
+    public static List<Person> getWithRange(String type, int min, int max){
+    	if (max==0) max=100000;
+    	EntityManager em = LifeCoachDao.instance.createEntityManager();
+    	List<LifeStatus> list = em
+				.createQuery("SELECT p FROM LifeStatus p WHERE p.measureDefinition.measureName = :type and CAST(p.value as decimal) >= :min"
+						+ " and CAST(p.value as decimal) <= :max", LifeStatus.class)
+				.setParameter("type", type)
+				.setParameter("min", min)
+				.setParameter("max", max).getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    System.out.println(list.size());
+	    List<Person> p = new ArrayList<>();
+	    for (int i = 0; i<list.size();i++){
+	    	p.add(list.get(i).getPerson());
+	    }
+	    System.out.println(p.size());
+    	return p;
     }
 
     public static Person savePerson(Person p) {
