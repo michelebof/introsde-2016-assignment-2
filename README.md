@@ -5,13 +5,6 @@ INTROSDE  Assignment 02: RESTful Services
 
 The code
 -------------
- This assignment is developed with the following technologies:
-
- - JAVA
- - XML/XSD
- - JSON
- - XPATH
- - JAXB/Jackson
 
 In the /src folder there are the Java classes; the package dao ("data access object", a typical data accessing pattern) contains LifeCoachDao the enum class that manages the connection to the database.
 The 'model' package contains the Person, LifeStatus, MeasureDefinition and HealthMesureHistory java classes that map to the database tables, the 'resources' package contains classes that represent the resource in REST and the default package contains the main class and it's configuration to run the standalone server.
