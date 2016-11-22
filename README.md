@@ -22,14 +22,6 @@ The 'client' package contains the main class to be run to test the server, of my
 
 ----------
 
-Task of the code
---------------------
-With the **HealthProfile** class can execute four different tasks depending on the arguments included, the first argument that must be included is the method.
-The method 'all' prints all the people in the 'people.xml' with details while the methods 'displayHealthProfile' and 'displayProfile', with the argument 'PersonID', print the HealthProfile or all the profile of the person with that id. Finally the method 'displayProfilebyWeight'  accepts a weight and an operator (=, > , <) as arguments and prints people that fulfill that condition.
-With the  **JAXBmarshalling** class can marshal into NEWpeople.xml or create the NEWpeople.json with three standard people or you can unmarshal the NEWpeople.xml into the PeopleStore class and print the people's details.
-
-------------
-
 How run the code 
 ---------------------
 The code can be run simply execute in the terminal ```git clone https://github.com/michelebof/introsde-2016-assignment-2```
