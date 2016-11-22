@@ -147,8 +147,8 @@ public class TestClient{
 	    printResult();
 	    request9JSON(s);
 	    printResult();
-//	    request10JSON(id);
-//	    printResult();
+	    request10JSON(id);
+	    printResult();
 	    request11JSON(id);
 	    printResult();
 	    request12JSON();
@@ -159,9 +159,9 @@ public class TestClient{
 
 	}
 
-	private static URI getBaseURI(){
-		return UriBuilder.fromUri("http://192.168.43.143:5700/assignment").build();
-		//return UriBuilder.fromUri("https://introsde2016-assignment2.herokuapp.com/assignment").build();
+	private static URI getBaseURI(){ 
+		//return UriBuilder.fromUri("http://192.168.43.143:5700/assignment").build();
+		return UriBuilder.fromUri("https://introsde2016-assignment-2.herokuapp.com/sdelab").build();
 	}
 	
 	
@@ -296,12 +296,12 @@ public class TestClient{
 	    result = false;
 	    
 	    String newName = "Jon";
-	    String requestBody = "<person><name>"+ newName +"</name></person>";
+	    String requestBody = "<person><firstname>"+ newName +"</firstname></person>";
 	    resp = service.path(request).request().accept(type).put(Entity.entity(requestBody, content));
 	    xml = resp.readEntity(String.class);
 	    doc = builder.parse(new InputSource(new StringReader(xml)));
     
-	    XPathExpression expr = xpath.compile("//name");
+	    XPathExpression expr = xpath.compile("//firstname");
 	    String firstname = (String) expr.evaluate(doc, XPathConstants.STRING);
 	    if (newName.equals(firstname)) result = true;
 	    
@@ -321,13 +321,13 @@ public class TestClient{
 	    String newperson_id = "";
 	    
 	    String requestBody = "<person>"
-	    		+ "<name>Chuck</name>"
+	    		+ "<firstname>Chuck</firstname>"
 	    		+ "<lastname>Norris</lastname>"
 	    		+ "<birthdate>01/01/1945</birthdate>"
-	    		+ "<healthProfile>"
-	    		+ "<measureType><measureDef><idMeasureDef>1</idMeasureDef></measureDef><value>78.9</value></measureType>"
-	    		+ "<measureType><measureDef><idMeasureDef>2</idMeasureDef></measureDef><value>172</value></measureType>"
-	    		+ "</healthProfile></person>";
+	    		+ "<healthprofile>"
+	    		+ "<measureType><measure>weight</measure><value>78.9</value></measureType>"
+	    		+ "<measureType><measure>height</measure><value>172</value></measureType>"
+	    		+ "</healthprofile></person>";
 
 
 	    resp = service.path(request).request().accept(type).post(Entity.entity(requestBody, content));
@@ -406,6 +406,8 @@ public class TestClient{
 	    result = false;
 	    Response this_res = null;
 	    String this_req = null;
+	    String this_xml = null;
+	    Document this_doc =null;
 	    
 	    for (int i = 0; i<vector.length; i++){
 	    	String request1 = request + vector[i];
@@ -414,23 +416,31 @@ public class TestClient{
 	    	if(resp.getStatus() == 200){
 	    		result = true;
 	    		xml = resp.readEntity(String.class);
-	    	    doc = builder.parse(new InputSource(new StringReader(xml)));	    	    
-	    	    XPathExpression expr = xpath.compile("//healthMeasureHistory[1]/measureName");
-	    	    Node node = (Node) expr.evaluate(doc, XPathConstants.NODE);
-	    		measure_type = node.getTextContent();
-	    		expr = xpath.compile("//healthMeasureHistory[1]/idMeasureHistory");
-	    	    node = (Node) expr.evaluate(doc, XPathConstants.NODE);
-	    		measure_id = node.getTextContent();
-	    		id = first_id;
-	    		this_res = resp;
-	    		this_req = request1;
+	    	    doc = builder.parse(new InputSource(new StringReader(xml)));
+	    	    XPathExpression test = xpath.compile("//healthMeasureHistories");
+	    	    Node nodetest = (Node) test.evaluate(doc, XPathConstants.NODE);
+	    		String resultstring = nodetest.getTextContent();
+	    	    if (!resultstring.isEmpty()){
+	    	    	XPathExpression expr = xpath.compile("//measureDefinition[1]");
+		    	    Node node = (Node) expr.evaluate(doc, XPathConstants.NODE);
+		    		measure_type = node.getTextContent();
+		    		expr = xpath.compile("//mid[1]");
+		    	    node = (Node) expr.evaluate(doc, XPathConstants.NODE);
+		    		measure_id = node.getTextContent();
+		    		id = first_id;
+		    		this_res = resp;
+		    		this_req = request1;   
+		    		this_xml = xml;
+		    		this_doc = doc;
+	    	    } 	    
 	    		
 	    	}
 	    	
 	    }
-	    
+	    xml = this_xml;
 	    resp = this_res;
 	    request = this_req;
+	    doc = this_doc;
 	    
 	}
 	
@@ -472,7 +482,7 @@ public class TestClient{
 	    content = MediaType.APPLICATION_XML;
 	    result = false;
 	    request = "person/" + first_id + "/" + measure_type;
-	    String requestBody = "<healthMeasureHistory><value>72</value><created>09/12/2011</created></healthMeasureHistory>";
+	    String requestBody = "<measureType><value>72</value></measureType>";
 
 
 	    Response this_resp = service.path(request).request().accept(type).post(Entity.entity(requestBody, content));
@@ -509,7 +519,7 @@ public class TestClient{
 	    result = false;
 	    int value = 82;
 	    
-	    String requestBody = "<healthMeasureHistory><value>"+ value +"</value><created>09/12/2011</created></healthMeasureHistory>";
+	    String requestBody = "<healthMeasureHistory><value>"+ value +"</value></healthMeasureHistory>";
 	    Response this_resp = service.path(request).request().accept(type).put(Entity.entity(requestBody, content));
 	    String this_xml = this_resp.readEntity(String.class);
 	    Document this_doc = builder.parse(new InputSource(new StringReader(this_xml)));
@@ -537,8 +547,8 @@ public class TestClient{
 	    // GET Request #11 --- GET  BASEURL/person/{id}/{measureType}?before={beforeDate}&after={afterDate}
 	    // Accept: application/xml
 	    //variable 
-		String before = "18/11/2016";
-		String after ="10/10/2011";
+		String before = "20-11-2016";
+		String after ="10-11-1990";
 		measure_type = "weight";
 	    start = "Request #11: GET /";
 	    request = "person/"+ id + "/" + measure_type;
@@ -568,8 +578,8 @@ public class TestClient{
 	    // GET Request #12 --- GET  BASEURL/person/{id}?measureType={measureType}&max={max}&min={min}
 	    // Accept: application/xml
 	    //variable 
-		String max = "85";
-		String min ="75";
+		String max = "95";
+		String min ="85";
 		measure_type ="weight";
 	    start = "Request #12: GET /";
 	    request = "person";
@@ -655,14 +665,14 @@ public class TestClient{
 	    result = false;
 	    
 	    String newName = "Jon";
-	    String requestBody = "{\"name\": \""+ newName  +"\"}";
+	    String requestBody = "{\"firstname\": \""+ newName  +"\"}";
 	    
 	    	  
 	    resp = service.path(request).request().accept(type).put(Entity.entity(requestBody, content));
 	    json = resp.readEntity(String.class);
 	    JsonNode node = mapper.readTree(json);
     
-	    String firstname = node.path("name").asText();
+	    String firstname = node.path("firstname").asText();
 	    if (newName.equals(firstname)) result = true;
 	    
 	}
@@ -681,12 +691,12 @@ public class TestClient{
 	    String newperson_id = "";
 	    
 	    String requestBody = "{"
-	    		+ "\"name\": \"Chuck\","
+	    		+ "\"firstname\": \"Chuck\","
 	    		+ "\"lastname\":\"Norris\","
 	    		+ "\"birthdate\":\"01/01/1945\","
 	    		+ "\"measureType\":["
-	    		+ "{\"measureDef\":{\"idMeasureDef\":1},\"value\":\"78.9\"},"
-	    		+ "{\"measureDef\":{\"idMeasureDef\":2},\"value\":\"172\"}]"
+	    		+ "{\"measure\":\"weight\",\"value\":\"78.9\"},"
+	    		+ "{\"measure\":\"height\",\"value\":\"172\"}]"
 	    		+ "}";
 
 	   
@@ -741,13 +751,12 @@ public class TestClient{
 	    json = resp.readEntity(String.class);
 	    JsonNode node = mapper.readTree(json);
 
-	    int size = node.path("measureType").size();
-	    
+	    int size = node.size();
 	    if (size > 2) result = true;
 	    
 	    String[] measureTypes= new String[size];
  	    for (int i = 0; i< size; i++){
-	    	measureTypes[i]=node.path("measureType").get(i).asText();
+	    	measureTypes[i]=node.get(i).path("value").asText();
 	    }
  	    return measureTypes;
 	    
@@ -764,6 +773,7 @@ public class TestClient{
 	    result = false;
 	    Response this_res = null;
 	    String this_req = null;
+	    String this_json = null;
 	    
 	    for (int i = 0; i<vector.length; i++){
 	    	String request1 = request + vector[i];
@@ -773,11 +783,14 @@ public class TestClient{
 	    		result = true;
 	    		json = resp.readEntity(String.class);
 	    		JsonNode node = mapper.readTree(json);
-	    		measure_type = node.get(0).path("measureName").asText();
-	    		measure_id = node.get(0).path("idMeasureHistory").asText();
-	    		id = first_id;
-	    		this_res = resp;
-	    		this_req = request1;
+	    		if (!"[]".equals(json)){
+	    			measure_type = node.get(0).path("measureDefinition").path("value").asText();
+		    		measure_id = node.get(0).path("mid").asText();
+		    		id = first_id;
+		    		this_res = resp;
+		    		this_req = request1;
+		    		this_json = json;
+	    		}	
 	    		
 	    	}
 	    	
@@ -785,6 +798,7 @@ public class TestClient{
 	    
 	    resp = this_res;
 	    request = this_req;
+	    json = this_json;
 	    
 	}
 	
@@ -824,7 +838,7 @@ public class TestClient{
 	    content = MediaType.APPLICATION_JSON;
 	    result = false;
 	    request = "person/" + first_id + "/" + measure_type;
-	    String requestBody = "{\"value\":\"72\",\"created\":\"09/12/2011\"}";
+	    String requestBody = "{\"value\":\"72\"}";
 
 
 	    Response this_resp = service.path(request).request().accept(type).post(Entity.entity(requestBody, content));
@@ -860,7 +874,7 @@ public class TestClient{
 	    result = false;
 	    int value = 82;
 	    
-	    String requestBody = "{\"value\":"+ value +",\"created\":09/12/2011}";
+	    String requestBody = "{\"value\":"+ value +"}";
 	    Response this_resp = service.path(request).request().accept(type).put(Entity.entity(requestBody, content));
 	    String this_json = this_resp.readEntity(String.class);
     
@@ -888,8 +902,8 @@ public class TestClient{
 	    // GET Request #11 --- GET  BASEURL/person/{id}/{measureType}?before={beforeDate}&after={afterDate}
 	    // Accept: application/json
 	    //variable 
-		String before = "18/11/2016";
-		String after ="10/10/2011";
+		String before = "20-11-2016";
+		String after ="10-11-1990";
 		measure_type ="weight";
 	    start = "Request #11: GET /";
 	    request = "person/"+ id + "/" + measure_type;
@@ -918,8 +932,8 @@ public class TestClient{
 	    // GET Request #12 --- GET  BASEURL/person/{id}?measureType={measureType}&max={max}&min={min}
 	    // Accept: application/json
 	    //variable 
-		String max = "85";
-		String min ="75";
+		String max = "95";
+		String min ="85";
 		measure_type ="weight";
 	    start = "Request #12: GET /";
 	    request = "person";
