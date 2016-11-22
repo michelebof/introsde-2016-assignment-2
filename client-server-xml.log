@@ -5,16 +5,16 @@ Request #1: GET /person Accept: application/xml
   <person>
     <birthdate>31/12/1944</birthdate>
     <email>chuck.norris@gmail.com</email>
-    <firstname>Jon</firstname>
+    <firstname>Chuck</firstname>
     <idPerson>1</idPerson>
     <lastname>Norris</lastname>
     <healthprofile>
       <measureType>
-        <measure>weight</measure>
-        <value>72</value>
+        <measure>height</measure>
+        <value>1.73</value>
       </measureType>
       <measureType>
-        <measure>height</measure>
+        <measure>weight</measure>
         <value>72</value>
       </measureType>
     </healthprofile>
@@ -114,18 +114,6 @@ Request #1: GET /person Accept: application/xml
     </healthprofile>
     <username>caioT</username>
   </person>
-  <person>
-    <birthdate>01/01/1945</birthdate>
-    <idPerson>2354</idPerson>
-    <lastname>Norris</lastname>
-    <healthprofile/>
-  </person>
-  <person>
-    <birthdate>01/01/1945</birthdate>
-    <idPerson>2369</idPerson>
-    <lastname>Norris</lastname>
-    <healthprofile/>
-  </person>
 </people>
 
 Request #2: GET /person/1 Accept: application/xml
@@ -134,16 +122,16 @@ Request #2: GET /person/1 Accept: application/xml
 <?xml version="1.0" encoding="UTF-8"?><person>
   <birthdate>31/12/1944</birthdate>
   <email>chuck.norris@gmail.com</email>
-  <firstname>Jon</firstname>
+  <firstname>Chuck</firstname>
   <idPerson>1</idPerson>
   <lastname>Norris</lastname>
   <healthprofile>
     <measureType>
-      <measure>weight</measure>
-      <value>72</value>
+      <measure>height</measure>
+      <value>1.73</value>
     </measureType>
     <measureType>
-      <measure>height</measure>
+      <measure>weight</measure>
       <value>72</value>
     </measureType>
   </healthprofile>
@@ -161,11 +149,11 @@ Request #3: PUT /person/1 Accept: application/xml Content-Type:  application/xml
   <lastname>Norris</lastname>
   <healthprofile>
     <measureType>
-      <measure>weight</measure>
-      <value>72</value>
+      <measure>height</measure>
+      <value>1.73</value>
     </measureType>
     <measureType>
-      <measure>height</measure>
+      <measure>weight</measure>
       <value>72</value>
     </measureType>
   </healthprofile>
@@ -178,7 +166,7 @@ Request #4: POST /person Accept: application/xml Content-Type:  application/xml
 <?xml version="1.0" encoding="UTF-8"?><person>
   <birthdate>01/01/1945</birthdate>
   <firstname>Chuck</firstname>
-  <idPerson>2421</idPerson>
+  <idPerson>2354</idPerson>
   <lastname>Norris</lastname>
   <healthprofile>
     <measureType>
@@ -192,7 +180,7 @@ Request #4: POST /person Accept: application/xml Content-Type:  application/xml
   </healthprofile>
 </person>
 
-Request #5: DELETE /person/2421 Accept: application/xml
+Request #5: DELETE /person/2354 Accept: application/xml
 => Result: OK
 => HTTP Status: 204
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -218,187 +206,7 @@ Request #7: GET /person/1/height Accept: application/xml
     <mid>2</mid>
     <measureDefinition>height</measureDefinition>
     <created>2016-11-15T23:00:00Z</created>
-    <value>82</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1354</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:00:01.756Z</created>
-    <value>1.73</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1355</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:03:31.950Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1356</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:04:47.109Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1357</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:05:44.396Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1358</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:06:57.193Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1359</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:08:57.759Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1360</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:09:54.013Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1361</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:11:42.765Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1362</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:12:40.092Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1363</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:13:27.782Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1364</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:14:20.071Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1365</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:17:46.688Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1366</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:18:49.621Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1367</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:19:28.430Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1368</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:21:50.677Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1369</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:23:20.231Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1370</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:26:52.877Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1371</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:27:48.506Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1372</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:35:05.350Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1373</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:37:29.606Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1374</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:37:39.491Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1375</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:39:26.946Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1376</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:39:36.877Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1377</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:39:52.514Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1378</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:39:56.567Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1379</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:41:22.708Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1380</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:42:04.262Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1381</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:42:14.438Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1382</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:45:19.033Z</created>
-    <value>72</value>
-  </healthMeasureHistory>
-  <healthMeasureHistory>
-    <mid>1383</mid>
-    <measureDefinition>height</measureDefinition>
-    <created>2016-11-22T09:45:29.379Z</created>
-    <value>72</value>
+    <value>1.8</value>
   </healthMeasureHistory>
 </healthMeasureHistories>
 
@@ -409,7 +217,7 @@ Request #8: GET /person/1/height/2 Accept: application/xml
   <mid>2</mid>
   <measureDefinition>height</measureDefinition>
   <created>2016-11-15T23:00:00Z</created>
-  <value>82</value>
+  <value>1.8</value>
 </healthMeasureHistory>
 
 Request #9: POST /person/1/height Accept: application/xml Content-Type:  application/xml

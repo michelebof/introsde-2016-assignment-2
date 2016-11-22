@@ -88,22 +88,6 @@ Request #1: GET /person Accept: application/json
     "value" : "69",
     "measure" : "weight"
   } ]
-}, {
-  "idPerson" : 2354,
-  "firstname" : null,
-  "lastname" : "Norris",
-  "birthdate" : "01/01/1945",
-  "username" : null,
-  "email" : null,
-  "measureType" : [ ]
-}, {
-  "idPerson" : 2369,
-  "firstname" : null,
-  "lastname" : "Norris",
-  "birthdate" : "01/01/1945",
-  "username" : null,
-  "email" : null,
-  "measureType" : [ ]
 } ]
 Request #2: GET /person/1 Accept: application/json
 => Result: OK
@@ -145,7 +129,7 @@ Request #4: POST /person Accept: application/json Content-Type:  application/jso
 => Result: OK
 => HTTP Status: 200
 {
-  "idPerson" : 2422,
+  "idPerson" : 2355,
   "firstname" : "Chuck",
   "lastname" : "Norris",
   "birthdate" : "01/01/1945",
@@ -159,7 +143,7 @@ Request #4: POST /person Accept: application/json Content-Type:  application/jso
     "measure" : "height"
   } ]
 }
-Request #5: DELETE /person/2422 Accept: application/json
+Request #5: DELETE /person/2355 Accept: application/json
 => Result: OK
 => HTTP Status: 204
 null
@@ -195,217 +179,7 @@ Request #7: GET /person/1/height Accept: application/json
     "value" : "height"
   },
   "mid" : 1354,
-  "created" : 1479805201756
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1355,
-  "created" : 1479805411950
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1356,
-  "created" : 1479805487109
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1357,
-  "created" : 1479805544396
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1358,
-  "created" : 1479805617193
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1359,
-  "created" : 1479805737759
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1360,
-  "created" : 1479805794013
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1361,
-  "created" : 1479805902765
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1362,
-  "created" : 1479805960092
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1363,
-  "created" : 1479806007782
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1364,
-  "created" : 1479806060071
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1365,
-  "created" : 1479806266688
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1366,
-  "created" : 1479806329621
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1367,
-  "created" : 1479806368430
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1368,
-  "created" : 1479806510677
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1369,
-  "created" : 1479806600231
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1370,
-  "created" : 1479806812877
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1371,
-  "created" : 1479806868506
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1372,
-  "created" : 1479807305350
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1373,
-  "created" : 1479807449606
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1374,
-  "created" : 1479807459491
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1375,
-  "created" : 1479807566946
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1376,
-  "created" : 1479807576877
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1377,
-  "created" : 1479807592514
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1378,
-  "created" : 1479807596567
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1379,
-  "created" : 1479807682708
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1380,
-  "created" : 1479807724262
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1381,
-  "created" : 1479807734438
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1382,
-  "created" : 1479807919033
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1383,
-  "created" : 1479807929379
-}, {
-  "value" : "72",
-  "measureDefinition" : {
-    "value" : "height"
-  },
-  "mid" : 1384,
-  "created" : 1479807993432
+  "created" : 1479811138901
 } ]
 Request #8: GET /person/1/height/2 Accept: application/json
 => Result: OK

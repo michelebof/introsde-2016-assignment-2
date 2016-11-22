@@ -44,7 +44,9 @@ Then:
 
  #### Information of my partner student:
  Name:	Sara Gasperetti
+
  Link git:	https://github.com/SaraGasperetti
+ 
  Link server heroku:	https://introsde2016-assignment-2.herokuapp.com/sdelab/ 
 
 
