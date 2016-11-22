@@ -205,7 +205,7 @@ Request #7: GET /person/1/height Accept: application/xml
   <healthMeasureHistory>
     <mid>2</mid>
     <measureDefinition>height</measureDefinition>
-    <created>2016-11-15T23:00:00Z</created>
+    <created>2016-11-15T23:00:00.000Z</created>
     <value>1.8</value>
   </healthMeasureHistory>
 </healthMeasureHistories>
@@ -216,7 +216,7 @@ Request #8: GET /person/1/height/2 Accept: application/xml
 <?xml version="1.0" encoding="UTF-8"?><healthMeasureHistory>
   <mid>2</mid>
   <measureDefinition>height</measureDefinition>
-  <created>2016-11-15T23:00:00Z</created>
+  <created>2016-11-15T23:00:00.000Z</created>
   <value>1.8</value>
 </healthMeasureHistory>
 
@@ -234,7 +234,7 @@ Request #10: PUT /person/1/height/2 Accept: application/xml Content-Type:  appli
 <?xml version="1.0" encoding="UTF-8"?><healthMeasureHistory>
   <mid>2</mid>
   <measureDefinition>height</measureDefinition>
-  <created>2016-11-15T23:00:00Z</created>
+  <created>2016-11-15T23:00:00.000Z</created>
   <value>82</value>
 </healthMeasureHistory>
 
@@ -245,13 +245,13 @@ Request #11: GET /person/1/weight?before=20-11-2016&after=10-11-1990 Accept: app
   <healthMeasureHistory>
     <mid>1</mid>
     <measureDefinition>weight</measureDefinition>
-    <created>2016-11-15T23:00:00Z</created>
+    <created>2016-11-15T23:00:00.000Z</created>
     <value>83</value>
   </healthMeasureHistory>
   <healthMeasureHistory>
     <mid>3</mid>
     <measureDefinition>weight</measureDefinition>
-    <created>2015-06-14T22:00:00Z</created>
+    <created>2015-06-14T22:00:00.000Z</created>
     <value>75</value>
   </healthMeasureHistory>
 </healthMeasureHistories>
